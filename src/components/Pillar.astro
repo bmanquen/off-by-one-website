@@ -1,0 +1,55 @@
+---
+type Item = string | { label: string; href: string };
+
+interface Props {
+  side: 'A' | 'B';
+  heading: string;
+  accentWord: string;
+  body: string;
+  items: Item[];
+}
+
+const { side, heading, accentWord, body, items } = Astro.props;
+
+const [headingBefore, headingAfter] = heading.split(`{${accentWord}}`);
+
+const normalizedItems = items.map((item) =>
+  typeof item === 'string' ? { label: item, href: undefined } : item
+);
+---
+
+<div class="flex flex-col gap-[22px] bg-paper p-10 transition-colors hover:bg-paper-2 h-full">
+  <span class="font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
+    Side {side}
+  </span>
+
+  <h3 class="text-[32px] font-bold leading-[1.1] tracking-[-0.025em]">
+    {headingBefore}<em class="font-serif italic text-accent">{accentWord}</em>{headingAfter}
+  </h3>
+
+  <p class="max-w-[46ch] text-[17px] leading-[1.5] text-muted">{body}</p>
+
+  <ul class="flex flex-col border-t border-rule pt-6">
+    {
+      normalizedItems.map(({ label, href }) => (
+        <li class="border-b border-ink/10 last:border-b-0">
+          {href ? (
+            <a
+              href={href}
+              class="flex items-center justify-between py-[14px] font-mono text-[12px] uppercase tracking-[0.1em] transition-colors hover:text-accent"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>{label}</span>
+              <span class="text-accent">↗</span>
+            </a>
+          ) : (
+            <span class="flex items-center py-[14px] font-mono text-[12px] uppercase tracking-[0.1em]">
+              {label}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</div>

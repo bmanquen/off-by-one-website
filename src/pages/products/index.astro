@@ -1,0 +1,57 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { products } from '../../data/products';
+---
+
+<Layout
+  title="Products — Off By One Labs"
+  description="Coffee Companion — a brewing notebook for the obsessed home brewer, in development from Off By One Labs."
+>
+  <!-- Hero -->
+  <section class="border-b border-rule">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-[clamp(72px,10vw,140px)] md:px-8">
+      <p
+        class="mb-12 inline-flex animate-reveal items-center gap-3 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-ink opacity-0 [animation-delay:0s]"
+      >
+        <span class="inline-block h-px w-7 bg-current opacity-70"></span>
+        Products · In Development
+      </p>
+
+      <h1
+        class="mb-10 max-w-[18ch] animate-reveal text-[clamp(48px,8.5vw,116px)] font-bold leading-[0.92] tracking-[-0.045em] opacity-0 [animation-delay:0.15s]"
+      >
+        Software for the people who <em class="font-serif italic text-accent">brew</em> coffee.
+      </h1>
+
+      <p
+        class="max-w-[620px] animate-reveal text-[19px] leading-[1.45] text-muted opacity-0 [animation-delay:0.3s]"
+      >
+        Coffee Companion is the first product from Off By One Labs — a brewing notebook for
+        people who treat coffee as a craft. Built with home brewers, shipping in 2026.
+      </p>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="border-t border-rule">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="01" title="Now in development" />
+
+      <div class="border border-rule">
+        {
+          products.map((p) => (
+            <ProductCard
+              name={p.name}
+              domain={p.domain}
+              description={p.shortDescription}
+              tag={p.tag}
+              slug={p.slug}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

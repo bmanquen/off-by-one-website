@@ -1,0 +1,46 @@
+---
+interface Props {
+  name: string;
+  nameAccent?: string;
+  domain: string;
+  description: string;
+  tag: string;
+  status?: string;
+  slug: string;
+}
+
+const {
+  name,
+  nameAccent = 'Companion',
+  domain,
+  description,
+  tag,
+  status = 'In Development',
+  slug,
+} = Astro.props;
+
+const namePrefix = name.replace(new RegExp(`\\s*${nameAccent}\\s*$`), '');
+---
+
+<a
+  href={`/products/${slug}`}
+  class="relative flex min-h-[280px] flex-col gap-[14px] bg-paper p-9 transition-colors hover:bg-paper-2"
+>
+  <span class="absolute right-6 top-6 inline-flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-ink">
+    <span class="size-2 rounded-full bg-accent"></span>
+    {status}
+  </span>
+
+  <h3 class="mt-2 text-[30px] font-bold leading-[1.05] tracking-[-0.025em]">
+    {namePrefix}{' '}
+    <em class="font-serif italic text-accent">{nameAccent}</em>
+  </h3>
+
+  <p class="font-mono text-[12px] tracking-[0.05em] text-muted">{domain}</p>
+
+  <p class="max-w-[42ch] text-[15px] leading-[1.5] text-muted">{description}</p>
+
+  <span class="mt-auto pt-[18px] font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+    {tag}
+  </span>
+</a>

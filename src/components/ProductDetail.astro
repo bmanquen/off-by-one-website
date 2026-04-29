@@ -1,0 +1,177 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionLabel from './SectionLabel.astro';
+import type { Product } from '../data/products';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const namePrefix = product.name.replace(
+  new RegExp(`\\s*${product.nameAccent}\\s*$`),
+  ''
+);
+
+const featureCount = product.features.length;
+---
+
+<Layout
+  title={`${product.name} — Off By One Labs`}
+  description={product.tagline}
+>
+  <!-- Hero -->
+  <section class="border-b border-rule">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-[clamp(72px,10vw,140px)] md:px-8">
+      <p
+        class="mb-12 inline-flex animate-reveal items-center gap-3 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-ink opacity-0 [animation-delay:0s]"
+      >
+        <span class="inline-block h-px w-7 bg-current opacity-70"></span>
+        <a href="/products" class="transition-colors hover:text-accent">← All products</a>
+      </p>
+
+      <h1
+        class="mb-7 max-w-[14ch] animate-reveal text-[clamp(48px,9vw,120px)] font-bold leading-[0.95] tracking-[-0.04em] opacity-0 [animation-delay:0.15s]"
+      >
+        {namePrefix}{' '}
+        <em class="font-serif italic text-accent">{product.nameAccent}</em>
+      </h1>
+
+      <p
+        class="mb-12 max-w-[56ch] animate-reveal text-[21px] leading-[1.45] text-muted opacity-0 [animation-delay:0.3s]"
+      >
+        {product.tagline}
+      </p>
+
+      <div
+        class="flex flex-wrap items-center gap-8 border-t border-rule pt-7 font-mono text-[12px] uppercase tracking-[0.1em] text-muted"
+      >
+        <span class="inline-flex items-center gap-[10px] text-ink">
+          <span class="size-2 rounded-full bg-accent"></span>
+          {product.status}
+        </span>
+        <span>{product.domain}</span>
+        <span>{product.tag}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <section class="border-t border-rule">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="01" title="Overview" />
+
+      <div class="grid grid-cols-1 gap-16 lg:grid-cols-[5fr_7fr]">
+        <h2
+          class="max-w-[16ch] text-[clamp(28px,3.6vw,40px)] font-bold leading-[1.1] tracking-[-0.025em]"
+        >
+          What <em class="font-serif italic text-accent">{product.name}</em> does, and who it's
+          for.
+        </h2>
+        <div class="flex max-w-[60ch] flex-col gap-[18px] text-[17px] leading-[1.55] text-muted">
+          {product.overview.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="border-t border-rule">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="02" title="Features" />
+
+      <div class="grid grid-cols-1 border border-rule md:grid-cols-2 lg:grid-cols-3">
+        {
+          product.features.map((f, i) => {
+            const onLg = i % 3;
+            const onMd = i % 2;
+            const lgRow = Math.floor(i / 3);
+            const lgRowsTotal = Math.ceil(featureCount / 3);
+            const mdRow = Math.floor(i / 2);
+            const mdRowsTotal = Math.ceil(featureCount / 2);
+            return (
+              <div
+                class:list={[
+                  'flex flex-col gap-[14px] bg-paper p-9 transition-colors hover:bg-paper-2 border-rule',
+                  // mobile: bottom border except last
+                  i < featureCount - 1 ? 'border-b' : '',
+                  // md (2 col): right except last in row, bottom except last row
+                  onMd === 0 ? 'md:border-r' : '',
+                  mdRow < mdRowsTotal - 1 ? 'md:border-b' : 'md:border-b-0',
+                  i === featureCount - 1 ? 'border-b-0' : '',
+                  // lg (3 col): right except last in row, bottom except last row
+                  onLg < 2 ? 'lg:border-r' : 'lg:border-r-0',
+                  lgRow < lgRowsTotal - 1 ? 'lg:border-b' : 'lg:border-b-0',
+                ]}
+              >
+                <span class="font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
+                  {f.num} / {f.heading}
+                </span>
+                <h3 class="text-[22px] font-semibold leading-[1.15] tracking-[-0.02em]">
+                  {f.heading}
+                </h3>
+                <p class="text-[15px] leading-[1.5] text-muted">{f.body}</p>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual placeholder -->
+  <section class="border-t border-rule">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="03" title="A look" />
+
+      <div
+        class="relative flex aspect-video w-full items-center justify-center border border-rule bg-paper-2"
+        style="background-image: repeating-linear-gradient(45deg, transparent 0, transparent 18px, rgba(15,42,32,0.05) 18px, rgba(15,42,32,0.05) 19px);"
+      >
+        <span class="font-mono text-[12px] uppercase tracking-[0.12em] text-muted">
+          Screenshot placeholder
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Built for -->
+  <section class="border-t border-rule">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="04" title="Built for" />
+
+      <div class="grid grid-cols-1 gap-10 border border-rule bg-paper p-12 lg:grid-cols-[5fr_7fr]">
+        <span class="font-mono text-[14px] uppercase tracking-[0.12em] text-accent">
+          Who it's for
+        </span>
+        <p class="max-w-[56ch] text-[19px] leading-[1.45] text-ink">{product.builtFor}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Email capture (dark) -->
+  <section class="border-t border-ink bg-ink text-paper">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="05" title="Get notified" dark />
+
+      <h2
+        class="mb-8 max-w-[18ch] text-[clamp(32px,5vw,56px)] font-bold leading-[1] tracking-[-0.035em]"
+      >
+        Get notified when <em class="font-serif italic text-accent">{product.name}</em>
+        launches.
+      </h2>
+
+      <p class="mb-10 max-w-[50ch] text-[17px] text-paper/70">
+        Drop us a line and we'll keep you in the loop — early access, beta invites, and the
+        occasional update on what we are building. No newsletter spam.
+      </p>
+
+      <a
+        href={`mailto:hello@offbyonelabs.dev?subject=${encodeURIComponent(`${product.name} — early access`)}`}
+        class="inline-block border-b-2 border-accent pb-1 text-[clamp(28px,4.5vw,48px)] font-semibold tracking-[-0.02em] text-accent transition-opacity hover:opacity-70"
+      >
+        hello@offbyonelabs.dev
+      </a>
+    </div>
+  </section>
+</Layout>

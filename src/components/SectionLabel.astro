@@ -1,0 +1,22 @@
+---
+interface Props {
+  num: string;
+  title: string;
+  dark?: boolean;
+}
+
+const { num, title, dark = false } = Astro.props;
+---
+
+<div
+  class:list={[
+    'mb-14 flex items-center gap-[18px] font-mono text-[12px] font-medium uppercase tracking-[0.1em]',
+    dark ? 'text-paper' : 'text-ink',
+  ]}
+>
+  <span class="text-accent">{num}</span>
+  <span class="text-muted">/</span>
+  <span>{title}</span>
+  <span class="text-muted">/</span>
+  <span class="h-px flex-1 bg-current opacity-40"></span>
+</div>

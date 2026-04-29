@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+
+const workItems = [
+  { num: '01', label: 'Mobile (iOS / Android)' },
+  { num: '02', label: 'SDKs & component libraries' },
+  { num: '03', label: 'Design systems' },
+  { num: '04', label: 'React Native / Expo' },
+];
+---
+
+<Layout
+  title="Contact — Off By One Labs"
+  description="Have a project that needs real engineering? Get in touch — Off By One Labs takes on selective contract work for teams that ship."
+  dark
+>
+  <section>
+    <div class="mx-auto max-w-[1280px] px-[22px] py-[clamp(72px,10vw,140px)] md:px-8">
+      <p
+        class="mb-12 inline-flex animate-reveal items-center gap-3 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-paper opacity-0 [animation-delay:0s]"
+      >
+        <span class="inline-block h-px w-7 bg-current opacity-70"></span>
+        Contact · 2026
+      </p>
+
+      <h1
+        class="mb-14 max-w-[16ch] animate-reveal text-[clamp(48px,8vw,104px)] font-bold leading-[0.96] tracking-[-0.04em] opacity-0 [animation-delay:0.15s]"
+      >
+        Let's build something <em class="font-serif italic text-accent">real</em>.
+        Drop a line.
+      </h1>
+
+      <a
+        href="mailto:hello@offbyonelabs.dev"
+        class="inline-block animate-reveal border-b-2 border-accent pb-1 text-[clamp(32px,5vw,64px)] font-semibold tracking-[-0.02em] text-accent opacity-0 transition-opacity [animation-delay:0.3s] hover:opacity-70"
+      >
+        hello@offbyonelabs.dev
+      </a>
+
+      <div
+        class="mt-14 grid animate-reveal grid-cols-1 gap-6 border-t border-paper/20 pt-8 font-mono text-[12px] uppercase tracking-[0.1em] text-paper/55 opacity-0 [animation-delay:0.45s] md:grid-cols-3"
+      >
+        <div>
+          <span class="mb-3 block">Based in</span>
+          <span class="text-[15px] text-paper">Edmond, Oklahoma</span>
+        </div>
+        <div>
+          <span class="mb-3 block">Availability</span>
+          <span class="text-[15px] text-paper">2026 · Select Projects</span>
+        </div>
+        <div>
+          <span class="mb-3 block">Studio Type</span>
+          <span class="text-[15px] text-paper">Independent · Two-sided</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-paper/15">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="01" title="What we work on" dark />
+
+      <div
+        class="grid grid-cols-1 border-t border-paper/20 md:grid-cols-2"
+      >
+        {
+          workItems.map((item) => (
+            <div class="flex items-center gap-4 border-b border-paper/20 py-6 font-mono text-[13px] uppercase tracking-[0.1em] text-paper">
+              <span class="text-accent">{item.num}</span>
+              <span class="text-paper/30">/</span>
+              <span>{item.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-paper/15">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="02" title="What to send" dark />
+
+      <div class="grid grid-cols-1 gap-16 lg:grid-cols-[5fr_7fr]">
+        <h2
+          class="max-w-[14ch] text-[clamp(32px,5vw,52px)] font-bold leading-[1.05] tracking-[-0.035em]"
+        >
+          A short note <em class="font-serif italic text-accent">is great</em>.
+        </h2>
+        <div class="flex max-w-[60ch] flex-col gap-[18px] text-[17px] leading-[1.55] text-paper/70">
+          <p>
+            A few sentences about your team, your product, and what you are trying to ship goes
+            a long way. If there is a deck or a doc, send it. If it's earlier than that, the
+            shape of the problem is enough.
+          </p>
+          <p>
+            We'll reply within a few days. If we are not the right fit, we'll usually be able to
+            point you somewhere that is.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

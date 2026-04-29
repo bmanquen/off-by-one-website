@@ -1,17 +1,207 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import Ticker from '../components/Ticker.astro';
+import Pillar from '../components/Pillar.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { products } from '../data/products';
 
+const tickerItems = [
+  'Websites',
+  'Web Apps',
+  'Mobile Apps',
+  'APIs & Integrations',
+  'AI integrations'
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Off By One Labs — Independent Software Studio">
+  <!-- Hero -->
+  <section class="border-b border-rule">
+    <div class="mx-auto max-w-7xl px-5.5 py-[clamp(72px,10vw,140px)] md:px-8">
+      <p
+        class="mb-12 inline-flex animate-reveal items-center gap-3 font-mono text-[11px] font-medium uppercase tracking-widest text-ink opacity-0 [animation-delay:0s]"
+      >
+        <span class="inline-block h-px w-7 bg-current opacity-70"></span>
+        Independent Software Studio · Est. 2025
+      </p>
+
+      <h1
+          class="mb-10 max-w-[18ch] animate-reveal text-[clamp(48px,8.5vw,116px)] font-bold leading-none tracking-[-0.045em] opacity-0 [animation-delay:0.15s]"
+      >
+        A <em class="font-serif italic text-accent">two-sided</em> studio:
+        <span class="u-accent inline-block"
+          ><em class="font-serif italic text-accent">indie products</em></span
+        >
+        and <em class="font-serif italic text-accent">contract</em> work for teams that ship.
+      </h1>
+
+      <p
+        class="max-w-[560px] animate-reveal text-[19px] leading-[1.45] text-muted opacity-0 [animation-delay:0.3s]"
+      >
+        We build our own software products under our own roof — and we take on selective
+        engineering work for teams who care about how things are made.
+      </p>
+
+      <div
+        class="mt-20 grid animate-reveal grid-cols-1 gap-8 border-t border-rule pt-8 opacity-0 [animation-delay:0.45s] md:grid-cols-3"
+      >
+        <div>
+          <span class="mb-3 block font-mono text-[12px] uppercase tracking-[0.1em] text-muted"
+            >Based in</span
+          >
+          <span class="text-[17px] font-medium tracking-[-0.01em]">Edmond, Oklahoma</span>
+        </div>
+        <div>
+          <span class="mb-3 block font-mono text-[12px] uppercase tracking-[0.1em] text-muted"
+            >Specializing in</span
+          >
+          <span class="text-[17px] font-medium tracking-[-0.01em]"
+            >Web Apps · Mobile Apps · APIs & Integrations</span
+          >
+        </div>
+        <div>
+          <span class="mb-3 block font-mono text-[12px] uppercase tracking-[0.1em] text-muted"
+            >Status</span
+          >
+          <span class="inline-flex items-center gap-2 text-[17px] font-medium tracking-[-0.01em]">
+            <span class="size-2 rounded-full bg-accent"></span>
+            Available for select work
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ticker -->
+  <Ticker items={tickerItems} />
+
+  <!-- Pillars -->
+  <section class="border-t border-rule">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="01" title="What we do" />
+
+      <div class="grid grid-cols-1 border border-rule lg:grid-cols-2">
+        <div class="border-b border-rule lg:border-b-0 lg:border-r">
+          <Pillar
+            side="A"
+            heading="Indie {products}, built under our own roof."
+            accentWord="products"
+            body="Software for craftspeople. We're starting with specialty coffee — Coffee Companion, a brewing notebook for the obsessed home brewer — and growing from there."
+            items={[{label: "Coffee Companion", href: "https://github.com/bmanquen/coffee-companion"}, {label: "Coffee Value Chain Tool", href: "https://github.com/bmanquen/coffee-value-chain"}]}
+          />
+        </div>
+        <Pillar
+          side="B"
+          heading="Selective {contract} work for teams that ship."
+          accentWord="contract"
+          body="We partner with product teams on websites, web and mobile apps, APIs, AI integrations, and more — the technical foundations that make shipping fast feel sustainable."
+          items={["Websites", "Web Apps", "Mobile Apps", "APIs & Integrations", "AI Integrations"]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Product feature -->
+  <section class="border-t border-rule">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="02" title="Now in development" />
+
+      <div class="border border-rule">
+        {
+          products.map((p) => (
+            <ProductCard
+              name={p.name}
+              domain={p.domain}
+              description={p.shortDescription}
+              tag={p.tag}
+              slug={p.slug}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="border-t border-rule">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="03" title="About the studio" />
+
+      <div class="grid grid-cols-1 gap-16 lg:grid-cols-[5fr_7fr]">
+        <h2
+          class="max-w-[14ch] text-[clamp(36px,5vw,56px)] font-bold leading-[1.05] tracking-[-0.035em]"
+        >
+          Small studio. <em class="font-serif italic text-accent">Real</em> craft.
+        </h2>
+
+        <div class="flex max-w-[60ch] flex-col gap-[18px] text-[17px] leading-[1.55] text-muted">
+          <p>
+            Off By One Labs is an independent software studio founded by{' '}
+            <strong class="font-medium text-ink">Brenden Manquen</strong>, a senior engineer with
+            a decade of experience shipping mobile apps, SDKs, and the design systems that hold
+            them together.
+          </p>
+          <p>
+            The studio is intentionally two-sided: a portfolio of indie products we build for the
+            craftspeople we admire, and a small dock of selective contract work that funds the
+            products and keeps us close to other product teams.
+          </p>
+          <p>
+            We work in the open about how things are made. We care about typography, the feel of
+            the first launch, the speed of the third tap, and the kind of code you'd be glad to
+            inherit.
+          </p>
+
+          <div class="mt-6 flex flex-wrap gap-[10px]">
+            {
+              [
+                'TypeScript',
+                'React',
+                'React Native',
+                'Kotlin',
+                'Jetpack Compose',
+                'Swift',
+                'Ruby on Rails',
+                'Design Systems',
+              ].map((s) => (
+                <span class="inline-flex items-center border border-rule px-[14px] py-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink">
+                  {s}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA (dark) -->
+  <section class="border-t border-ink bg-ink text-paper">
+    <div class="mx-auto max-w-[1280px] px-[22px] py-24 md:px-8 md:py-[96px]">
+      <SectionLabel num="04" title="Contact" dark />
+
+      <h2
+        class="mb-12 max-w-[18ch] text-[clamp(40px,7.5vw,88px)] font-bold leading-[0.98] tracking-[-0.04em]"
+      >
+        Have a project that needs <em class="font-serif italic text-accent">real</em> engineering?
+        Let's talk.
+      </h2>
+
+      <a
+        href="mailto:hello@offbyonelabs.dev"
+        class="inline-block border-b-2 border-accent pb-1 text-[clamp(28px,4.5vw,48px)] font-semibold tracking-[-0.02em] text-accent transition-opacity hover:opacity-70"
+      >
+        hello@offbyonelabs.dev
+      </a>
+
+      <div
+        class="mt-12 flex flex-wrap gap-8 font-mono text-[12px] uppercase tracking-[0.1em] text-paper/55"
+      >
+        <span>Edmond, OK</span>
+        <span>2026 · Select Projects</span>
+        <span>Independent Studio</span>
+      </div>
+    </div>
+  </section>
+</Layout>
